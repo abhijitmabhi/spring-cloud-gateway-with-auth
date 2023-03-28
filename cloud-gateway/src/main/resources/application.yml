@@ -1,0 +1,32 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: user-management
+          uri: lb://USER-MANAGEMENT
+          predicates:
+            - Path=/user-management/**
+          filters:
+            - AuthenticationFilter
+
+        - id: access-manager
+          uri: lb://ACCESS-MANAGER
+          predicates:
+            - Path=/access-manager/**
+          filters:
+            - AuthenticationFilter
+
+        - id: identity-service
+          uri: lb://IDENTITY-SERVICE
+          predicates:
+            - Path=/auth/**
+
+  application:
+    name: CLOUD-GATEWAY
+
+eureka:
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    service-url:
+      defaultZone : http://localhost:8761/eureka/
