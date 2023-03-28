@@ -13,8 +13,8 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
     @Autowired
     private RouteValidator validator;
 
-    @Autowired
-    private RestTemplate template;
+//    @Autowired
+//    private RestTemplate template;
     @Autowired
     private JwtUtil jwtUtil;
 
@@ -37,8 +37,8 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
                 }
                 try {
 //                    //REST call to AUTH service
-                    template.getForObject("http://IDENTITY-SERVICE//validate?token" + authHeader, String.class);
-//                    jwtUtil.validateToken(authHeader);
+//                    template.getForObject("http://IDENTITY-SERVICE//validate?token" + authHeader, String.class);
+                    jwtUtil.validateToken(authHeader);
 
                 } catch (Exception e) {
                     System.out.println("invalid access...!");
